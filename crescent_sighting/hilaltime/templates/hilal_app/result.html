@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilal</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hasil Perhitungan</h1>
+    <ul>
+        <li>Latitude: {{ config.latitude }}° </li>
+        <li>Longitude: {{ config.longitude }}°</li>
+        <li>From: {{ config.date_start}}</li>
+        <li>To: {{ config.date_end }}</li>
+    </ul>
+    <br>
+    <h1 style="text-align:center;">Data Hilal</h1>
+    <table>
+        <thead>
+            <tr>
+                {% for header in table_data.0 %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table_data|slice:"1:" %}
+                <tr>
+                    {% for cell in row %}
+                    {% if forloop.first %} {# Kolom pertama sebagai tautan #}
+                    <td NOWRAP><a href="detail/{{ forloop.parentloop.counter }}" target="_blank">{{ cell }}</a></td>
+                    {% else %}
+                        <td NOWRAP>{{ cell }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'home' %}">Back to Homepage</a>
+</body>
+</html>

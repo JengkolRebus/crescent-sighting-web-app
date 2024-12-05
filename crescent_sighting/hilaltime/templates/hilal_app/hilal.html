@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HILAL</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css'%}" class="stylesheet">
+</head>
+
+<body>
+    <div>
+        <h1>Hilal</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <p>Latitude: {{ form.latitude_degree }}° {{ form.latitude_minute }}m {{ form.latitude_second }}s</p>
+            <p>Longitude: {{ form.longitude_degree }}°{{ form.longitude_minute }}m {{ form.longitude_second }}s</p>
+            <p>From: {{ form.date_start }}</p>
+            <p>To: {{ form.date_end }}</p>
+            <button class="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            background-color: rgba(11,14,58,1);
+            overflow: hidden;
+        }
+        
+        body {
+            text-align: center;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            color: #F4F6F0;
+            margin-bottom: 50px;
+        }
+        
+        .sphere {
+            border-radius: 100%;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            overflow: hidden;
+            align-items: center;
+            position: relative;
+            margin-bottom: 50px;
+        }
+        
+        .hemisphere {
+            width: 50%;
+            height: 100%;
+        }
+        
+        .light {
+            background-color: #F4F6F0;
+        }
+        
+        .dark {
+            background-color: #575851;
+        }
+        
+        .divider,
+        .divider:after {
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            border-radius: 100%;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+        
+        .divider {
+            background-color: #575851;
+        }
+        
+        .divider:after {
+            content: '';
+            background-color: #F4F6F0;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <h1 id="date-title">
+
+    </h1>
+
+    <div class="sphere">
+        <div class="light hemisphere"></div>
+        <div class="dark hemisphere"></div>
+        <div class="divider"></div>
+    </div>
+
+
+    <script>
+        const illumination = 25
+        const direction = 0-90
+        
+        const setIlluminated = deg => {
+        document.querySelector('.divider').style.transform = `rotate3d(0, 1, 0, ${deg}deg)`
+
+        const hemispheres = document.querySelectorAll('.hemisphere')
+
+        if (deg < 180) {
+            // Left
+            hemispheres[0].classList.remove('dark')
+            hemispheres[0].classList.add('light')
+
+            hemispheres[1].classList.add('dark')
+            hemispheres[1].classList.remove('light')
+        } else {
+            hemispheres[0].classList.add('dark')
+            hemispheres[0].classList.remove('light')
+
+            hemispheres[1].classList.remove('dark')
+            hemispheres[1].classList.add('light')
+        }
+        }
+        const setRotation = deg => {
+        document.querySelector('.sphere').style.transform = `rotate3d(0, 0, -1, ${deg}deg)`
+
+        }
+        setIlluminated(illumination)
+        setRotation(direction)
+          
+    </script>
+</body>
+</html>

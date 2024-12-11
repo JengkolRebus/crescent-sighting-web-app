@@ -99,16 +99,16 @@
                             <tr>
                                 {% for cell in row %}
                                 {% if forloop.counter0 == 1 %} {# Kolom pertama sebagai tautan #}
-                                <td data-lable="{{DataLable.1}}">
+                                <td data-lable="{{DataLable.1}}" NOWRAP>
                                     <a href="detail/{{ forloop.parentloop.counter }}" target="_blank">
                                         <button class="btn btn-primary">{{ cell }}</button>
                                     </a>
                                 </td>
                                 {% else %}
                                     {% if forloop.counter0 == 0 %}
-                                    <td data-lable="{{DataLable.0}}">{{ cell }}</td>
+                                    <td data-lable="{{DataLable.0}}" NOWRAP>{{ cell }}</td>
                                     {% elif forloop.counter0 == 2 %}
-                                    <td data-lable="{{DataLable.2}}">{{ cell }}</td>
+                                    <td data-lable="{{DataLable.2}}" NOWRAP>{{ cell }}</td>
                                     {% elif forloop.counter0 == 3 %}
                                     <td data-lable="{{DataLable.3}}" NOWRAP>{{ cell }}</td>
                                     {% elif forloop.counter0 == 4 %}

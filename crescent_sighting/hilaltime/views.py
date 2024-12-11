@@ -60,14 +60,14 @@ def home_view(request):
             # Tambahkan baris header ke data tabel
             table_data.append(headers)
             for row in zip(*data.values()): table_data.append(list(row))
-            return render(request, 'hilal_app/result2.html', {'table_data': table_data, 'config':config, 'DataLable': DataLable})
+            return render(request, 'hilal_app/result.html', {'table_data': table_data, 'config':config, 'DataLable': DataLable})
     else:
         form = InputForm()
     context = {'form':form}
-    return render(request, 'hilal_app/hilal2.html', context)
+    return render(request, 'hilal_app/hilal.html', context)
 
 def result_view(request, context):
-    return render(request, 'hilal_app/result2.html', context)
+    return render(request, 'hilal_app/result.html', context)
 
 def detail_view(request, index):
     # Menggunakan dictionary comprehension (lebih ringkas)
@@ -181,4 +181,4 @@ def detail_view(request, index):
     # altitude_chart = plot(fig, output_type='div')
     
     # return render(request, 'hilal_app/detail.html', {'data': data, 'plot_div': plot_div, 'altitude_chart':altitude_chart})
-    return render(request, 'hilal_app/detail2.html', {'data': data, 'plot_div': plot_div})
+    return render(request, 'hilal_app/detail.html', {'data': data, 'plot_div': plot_div})

@@ -1,61 +1,151 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hilal</title>
+    <title>Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <style>
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            text-align: center;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
+        @media (max-width: 1080px) {
+            .table thead{
+                display: none;
+            }
+            .table, .table tbody, .table tr, .table td{
+                display: block;
+                width: 100%;
+            }
+            .table tr{
+                margin-bottom: 25px;
+                border: 1px solid #ddd;
+                padding: 5px;
+                padding-bottom: 0px;
+            }
+            .table tbody tr td{
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            .table td:before{
+                content: attr(data-lable);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                paddinng-left: 15px;
+                font-weigth: bold;
+                font-size: 16px;
+                text-align: left;
+            }
         }
     </style>
 </head>
-<body>
-    <h1>Hasil Perhitungan</h1>
-    <ul>
-        <li>Latitude: {{ config.latitude }}° </li>
-        <li>Longitude: {{ config.longitude }}°</li>
-        <li>From: {{ config.date_start}}</li>
-        <li>To: {{ config.date_end }}</li>
-    </ul>
-    <br>
-    <h1 style="text-align:center;">Data Hilal</h1>
-    <table>
-        <thead>
-            <tr>
-                {% for header in table_data.0 %}
-                    <th>{{ header }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in table_data|slice:"1:" %}
-                <tr>
-                    {% for cell in row %}
-                    {% if forloop.first %} {# Kolom pertama sebagai tautan #}
-                    <td NOWRAP><a href="detail/{{ forloop.parentloop.counter }}" target="_blank">{{ cell }}</a></td>
-                    {% else %}
-                        <td NOWRAP>{{ cell }}</td>
-                    {% endif %}
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-    <a href="{% url 'home' %}">Back to Homepage</a>
+
+<body style="background-color: #212529;">
+    <!--start container isi-->
+    <div class="container text-light mt-5 mb-5">
+        <h1>Result</h1>
+        <div class="container mt-5 mb-5">
+            <table class="table-sm table-dark">
+                <tbody>
+                    <tr>
+                        <th>Latitude</th>
+                        <td>:</td>
+                        <td>{{config.latitude}}</td>
+                    </tr>
+                    <tr>
+                        <th>Longitude</th>
+                        <td>:</td>
+                        <td>{{config.longitude}}</td>
+                    </tr>
+                    <tr>
+                        <th>From</th>
+                        <td>:</td>
+                        <td>{{config.date_start}}</td>
+                    </tr>
+                    <tr>
+                        <th>To</th>
+                        <td>:</td>
+                        <td>{{config.date_end}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--start container data-->
+        <div class="container">
+            <h1 style="text-align:center;">Hilal Data</h1>
+            <div class="container m-0 p-0">
+                <table class='table table-sm table-dark'>
+                    <thead>
+                        <tr>
+                            <th>Conjunction</th>
+                            <th>Sunset</th>
+                            <th>Moonset</th>
+                            <th>Moon Altitude</th>
+                            <th>Moon Azimuth</th>
+                            <th>Sun Altitude</th>
+                            <th>Sun Azimuth</th>
+                            <th>Elongation</th>
+                            <th>Moon Age</th>
+                            <th>Illumiination</th>
+                            <th>Lag Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in table_data|slice:"1:" %}
+                            <tr>
+                                {% for cell in row %}
+                                {% if forloop.counter0 == 1 %} {# Kolom pertama sebagai tautan #}
+                                <td data-lable="{{DataLable.1}}">
+                                    <a href="detail/{{ forloop.parentloop.counter }}" target="_blank">
+                                        <button class="btn btn-primary">{{ cell }}</button>
+                                    </a>
+                                </td>
+                                {% else %}
+                                    {% if forloop.counter0 == 0 %}
+                                    <td data-lable="{{DataLable.0}}">{{ cell }}</td>
+                                    {% elif forloop.counter0 == 2 %}
+                                    <td data-lable="{{DataLable.2}}">{{ cell }}</td>
+                                    {% elif forloop.counter0 == 3 %}
+                                    <td data-lable="{{DataLable.3}}" NOWRAP>{{ cell }}</td>
+                                    {% elif forloop.counter0 == 4 %}
+                                    <td data-lable="{{DataLable.4}}" NOWRAP>{{ cell }}</td>
+                                    {% elif forloop.counter0 == 5 %}
+                                    <td data-lable="{{DataLable.5}}" NOWRAP>{{ cell }}</td>
+                                    {% elif forloop.counter0 == 6 %}
+                                    <td data-lable="{{DataLable.6}}" NOWRAP>{{ cell }}</td>
+                                    {% elif forloop.counter0 == 7 %}
+                                    <td data-lable="{{DataLable.7}}" NOWRAP>{{ cell }}</td>
+                                    {% elif forloop.counter0 == 8 %}
+                                    <td data-lable="{{DataLable.8}}" NOWRAP>{{ cell }}</td>
+                                    {% elif forloop.counter0 == 9 %}
+                                    <td data-lable="{{DataLable.9}}" NOWRAP>{{ cell }}%</td>
+                                    {% elif forloop.counter0 == 10 %}
+                                    <td data-lable="{{DataLable.10}}" NOWRAP>{{ cell }}</td>
+                                    {% else %}
+                                    {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+            </div>
+        </div>
+        <!--end container data-->
+        
+        <a href="{% url 'home' %}">Back to Homepage</a>
+    <!--end container isi-->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
+
 </html>
